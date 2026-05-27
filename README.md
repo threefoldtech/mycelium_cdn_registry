@@ -211,3 +211,8 @@ This repository is a Cargo workspace-like layout (multiple crates under `crates/
 - `crates/registry`
 
 Build / test individual crates via their crate directories, or use `--manifest-path` from the repo root.
+
+## License
+
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+Copyright (c) TFTech NV.
