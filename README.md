@@ -1,13 +1,17 @@
-# Mycelium CDN (Hero Redis + Holochain Metadata)
+# Mycelium CDN Registry
 
-This repository contains tooling and metadata definitions for a distributed content delivery network.
+A distributed content delivery network (CDN) metadata registry and command-line tooling suite. It coordinates cache nodes and tracks content availability for distributed delivery over an encrypted overlay network.
 
-This repo consists of two main components:
+## What this is
 
-1. **`cdn-meta`**: A Rust library that defines the metadata format for objects
-2. **`mycdnctl`**: A command-line tool for uploading objects to the CDN
+This repository provides the metadata layer and tooling for a decentralized CDN. File content is split into chunks, encrypted, erasure-coded into shards, and stored in distributed backends. Metadata — including shard locations — is encrypted and stored in an authorized key-value store. A content reference encodes the encrypted metadata hash (used as the lookup key) and the plaintext metadata hash (used as the decryption key).
 
-Metadata storage is performed via a Holochain hApp (see `holopoc/`) which provides an authorized key-value store.
+## What this repository contains
+
+- **`cdn-meta`** — A Rust library that defines the metadata format for CDN objects.
+- **`mycdnctl`** — A command-line tool for uploading files and directories to the CDN.
+- **`registry`** — Registry-related crate components.
+- **`holopoc/`** — A Holochain hApp providing an authorized key-value store for encrypted metadata.
 
 ## Storage Model (High Level)
 
@@ -212,7 +216,23 @@ This repository is a Cargo workspace-like layout (multiple crates under `crates/
 
 Build / test individual crates via their crate directories, or use `--manifest-path` from the repo root.
 
+## Mycelium
+
+Mycelium is the network layer used to provide secure, peer-to-peer connectivity between nodes, services, and users. It enables decentralized networking across the infrastructure stack and is used as part of the ThreeFold Grid deployment.
+
+## Role in the stack
+
+This registry operates on top of Mycelium, the encrypted overlay network layer. Content shards are distributed across Hero Redis storage nodes, while metadata is anchored in Holochain for decentralized, authorized lookup. The system provides a CDN-like experience without relying on centralized infrastructure.
+
+## Relation to ThreeFold
+
+This technology is used within the ThreeFold ecosystem and was first deployed on the ThreeFold Grid. The component itself is designed as reusable infrastructure technology and should be understood by its technical function first, independent of any specific deployment.
+
+## Ownership
+
+This repository is owned and maintained by TF-Tech NV, a Belgian company responsible for the development and maintenance of this technology.
+
 ## License
 
-This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
-Copyright (c) TFTech NV.
+This project is licensed under the Apache License 2.0 — see the [LICENSE](LICENSE) file for details.
+Copyright (c) TF-Tech NV.
